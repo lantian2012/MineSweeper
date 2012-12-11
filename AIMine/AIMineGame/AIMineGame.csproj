@@ -104,6 +104,7 @@
   <ItemGroup>
     <Compile Include="Game.cs" />
     <Compile Include="MineDefs.cs" />
+    <Compile Include="MINEWND.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
