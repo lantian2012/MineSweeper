@@ -11,6 +11,8 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using AIMine.Views;
+using AIMine.ViewModels;
 
 // “空白页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234238 上有介绍
 
@@ -24,8 +26,8 @@ namespace AIMine
         public MainPage()
         {
             this.InitializeComponent();
+            var _settingsViewModel = (Application.Current as App).SettingsViewModel;
         }
-
         /// <summary>
         /// 在此页将要在 Frame 中显示时进行调用。
         /// </summary>
@@ -34,5 +36,14 @@ namespace AIMine
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
         }
+
+        private void BtnStartGame_Click(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(GamePage));
+        }
+
+        private SettingsViewModel _settingsViewModel { get; set; }
+
+
     }
 }

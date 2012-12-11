@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using AIMine.ViewModels;
 
 // “空白应用程序”模板在 http://go.microsoft.com/fwlink/?LinkId=234227 上有介绍
 
@@ -31,7 +32,13 @@ namespace AIMine
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+            SettingsViewModel = new SettingsViewModel();
+            SettingsViewModel.m_uMineNum = 40;
+            SettingsViewModel.m_uXnum = 16;
+            SettingsViewModel.m_uYnum = 16;
+            
         }
+        public SettingsViewModel SettingsViewModel { get; set; }
 
         /// <summary>
         /// 在应用程序由最终用户正常启动时进行调用。
