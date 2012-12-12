@@ -45,7 +45,7 @@ namespace AIMineComponent
                 foreach (var column in Enumerable.Range(0, m_uYNum))
                 {
                     m_pMines[row][column] = new MINEWND();
-                    if (row == 1) m_pMines[row][column].uState = State.Num4;
+                    if (row == 0) m_pMines[row][column].uState = State.Num4;
                     if (row == 1) m_pMines[row][column].uState = State.Num1;
                     if (row == 2) m_pMines[row][column].uState = State.Num2;
                     if (row == 3) m_pMines[row][column].uState = State.Num3;
@@ -53,18 +53,6 @@ namespace AIMineComponent
             }
         }
         #endregion
-        public sealed override string ToString()
-        {
-            var state = new StringBuilder(m_uYNum * m_uXNum);
-            foreach (var row in Enumerable.Range(0, m_uYNum))
-            {
-                foreach (var column in Enumerable.Range(0, m_uXNum))
-                {
-                    state.Append(((int)m_pMines[row][column].uState).ToString());
-                }
-            }
-            return state.ToString();
-        }
 
 
     }

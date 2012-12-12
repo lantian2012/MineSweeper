@@ -7,11 +7,17 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     d:DesignHeight="100"
-    d:DesignWidth="100" Margin="1,0,-1,0">
-    
+    d:DesignWidth="100" Margin="1,0,-1,0" Loaded="UserControl_Loaded_1">
+    <UserControl.Resources>
+        <local:StateFormatter x:Key="Converter1"/>
+    </UserControl.Resources>
     
     <Grid>
-        <Button x:Name="SpaceButton" Content="Button" HorizontalAlignment="Left" VerticalAlignment="Top" Height="100" Width="100" BorderBrush="#FF23415F" Loaded="SpaceButton_Loaded"/>
+        <Button x:Name="SpaceButton" Content="button" HorizontalAlignment="Left" VerticalAlignment="Top" Height="100" Width="100" BorderBrush="#FF23415F" Loaded="SpaceButton_Loaded" Click="SpaceButton_Click">
+            <Button.Background>
+                <ImageBrush ImageSource= "{Binding uState, Converter={StaticResource Converter1}}"/>
+            </Button.Background>
+        </Button>
 
     </Grid>
 </UserControl>

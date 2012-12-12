@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Media.Imaging;
 using AIMineComponent;
 using AIMine.Common;
+using AIMine.ViewModels;
 
 // “用户控件”项模板在 http://go.microsoft.com/fwlink/?LinkId=234236 上提供
 
@@ -24,6 +25,7 @@ namespace AIMine.Views
         public BoardSpace()
         {
             this.InitializeComponent();
+            
         }
         public int row { get; set; }
         public int column { get; set; }
@@ -45,13 +47,14 @@ namespace AIMine.Views
         {
             switch (SpaceState)
             {
-                /*case State.Normal:
+                    /*
+                case State.Normal:
                     ImageBrush brushnormal = new ImageBrush();
                     //brushnormal.ImageSource = new BitmapImage(new Uri(@"Num1.PNG", UriKind.RelativeOrAbsolute));
                     brushnormal.ImageSource = new BitmapImage(new Uri("ms_appx:///Assets/Num1.png"));
                     //brushnormal.ImageSource = new Uri("Num1.PNG" & Image, UriKind.RelativeOrAbsolute);
                     brushnormal.Stretch = Stretch.Fill;
-                    break;*/
+                    break;
                 case State.Num1:
                     ImageBrush brushnum1 = new ImageBrush();
                     brushnum1.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Background.png"));
@@ -68,12 +71,73 @@ namespace AIMine.Views
                     brushnum3.Stretch = Stretch.Fill;
                     
                     break;
+                 */
+
+                case State.Num1:
+                    SpaceButton.Content = "1";
+                    break;
+                case State.Num2:
+                    SpaceButton.Content = "2";
+                    break;
+                case State.Num3:
+                    SpaceButton.Content = "3";
+                    break;
+                case State.Num4:
+                    SpaceButton.Content = "4";
+                    break;
             }
         }
 
         private void SpaceButton_Loaded(object sender, RoutedEventArgs e)
         {
             UpdateSpaceState(false);
+        }
+
+        private void SpaceButton_Click(object sender, RoutedEventArgs e)
+        {
+            gameViewModel.leftClick(row, column);
+            
+        }
+
+        public GameViewModel gameViewModel{ get; set;}
+
+        private void UserControl_Loaded_1(object sender, RoutedEventArgs e)
+        {
+            //SpaceButton.DataContext = gameViewModel.game.m_pMines[row][column];
+        }
+
+    }
+
+    public class StateFormatter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            State thisState = (State)value;
+            string picuture;
+            switch (thisState)
+            {
+                case State.Normal:
+                    picuture = "ms-appx:///Assets/Num1.png";
+                    break;
+                case State.Num1:
+                    picuture = "ms-appx:///Assets/Num1.png";
+                    break;
+                case State.Num2:
+                    picuture = "ms-appx:///Assets/Num2.png";
+                    break;
+                case State.Num3:
+                    picuture = "ms-appx:///Assets/Num3.png";
+                    break;
+                default:
+                    picuture = "ms-appx:///Assets/Num3.png";
+                    break;
+            }
+            return picuture;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            throw new NotImplementedException();
         }
     }
 }

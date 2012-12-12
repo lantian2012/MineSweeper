@@ -11,6 +11,8 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using AIMine.ViewModels;
+using AIMine.Common;
 
 // “用户控件”项模板在 http://go.microsoft.com/fwlink/?LinkId=234236 上提供
 
@@ -21,6 +23,7 @@ namespace AIMine.Views
         public Board()
         {
             this.InitializeComponent();
+            ;
         }
 
 
@@ -45,6 +48,7 @@ namespace AIMine.Views
 
         private void UserControl_Loaded_1(object sender, RoutedEventArgs e)
         {
+            gameViewModel = DataContext as GameViewModel;
             var rows = Enumerable.Range(0, RowCount).ToArray();
             var columns = Enumerable.Range(0, ColumnCount).ToArray();
             foreach (var row in rows) BoardGrid.RowDefinitions.Add(new RowDefinition());
@@ -57,15 +61,23 @@ namespace AIMine.Views
                     var boardSpace = new BoardSpace();
                     boardSpace.row = row;
                     boardSpace.column = column;
-                    boardSpace.SetBinding(BoardSpace.SpaceStateProperty,
-                        new Binding { Path = new PropertyPath(String.Format("[{0},{1}]", row, column)) });
+                    boardSpace.gameViewModel = gameViewModel;
+                    //boardSpace.SetBinding(BoardSpace.SpaceStateProperty,
+                    //   new Binding { Path = new PropertyPath(String.Format("game.m_pMines[{0}][{1}].uState", row, column)) });
+                    //boardSpace.SetBinding(BoardSpace.SpaceStateProperty,
+                    //   new Binding { Path = new PropertyPath("teststate") });
+                    
                     boardViewBox.Child = boardSpace;
                     boardViewBox.Stretch = Stretch.Fill;
                     Grid.SetRow(boardViewBox, row);
                     Grid.SetColumn(boardViewBox, column);
                     BoardGrid.Children.Add(boardViewBox);
+                    boardSpace.DataContext = gameViewModel.game.m_pMines[row][column];
+                   
                 }
             }
         }
+
+        private GameViewModel gameViewModel;
     }
 }

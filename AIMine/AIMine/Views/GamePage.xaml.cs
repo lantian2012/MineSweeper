@@ -12,6 +12,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using AIMine.ViewModels;
+using AIMine.Common;
 
 // “基本页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234237 上有介绍
 
@@ -27,7 +28,9 @@ namespace AIMine.Views
             this.InitializeComponent();
             _settingsViewModel = (Application.Current as App).SettingsViewModel;
             gameViewModel = new GameViewModel(_settingsViewModel);
-            GameBoard.DataContext = gameViewModel;
+            this.DataContext = gameViewModel;
+            testBtn.SetBinding(Button.ContentProperty,
+                        new Binding { Path = new PropertyPath("game.m_uMineNum") });
             
         }
 
@@ -56,5 +59,15 @@ namespace AIMine.Views
 
         public GameViewModel gameViewModel { get; set; }
         private SettingsViewModel _settingsViewModel;
+
+        private void testBtn_PointerPressed(object sender, PointerRoutedEventArgs e)
+        {
+            gameViewModel.test();
+        }
+
+        private void testBtn_Click(object sender, RoutedEventArgs e)
+        {
+            gameViewModel.test();
+        }
     }
 }
