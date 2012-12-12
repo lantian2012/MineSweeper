@@ -27,6 +27,8 @@ namespace AIMine.Views
             this.InitializeComponent();
             _settingsViewModel = (Application.Current as App).SettingsViewModel;
             gameViewModel = new GameViewModel(_settingsViewModel);
+            GameBoard.DataContext = gameViewModel;
+            
         }
 
         /// <summary>

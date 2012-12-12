@@ -39,6 +39,8 @@
             <Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"/>
             <TextBlock x:Name="pageTitle" Grid.Column="1" Text="{StaticResource AppName}" Style="{StaticResource PageHeaderTextStyle}"/>
         </Grid>
+        <local:Board x:Name="GameBoard" HorizontalAlignment="Left" Margin="607,0,0,0" Grid.Row="1" VerticalAlignment="Top"
+                     RowCount="{Binding game.m_uXNum}" ColumnCount="{Binding game.m_uYnum}"/>
 
         <VisualStateManager.VisualStateGroups>
 

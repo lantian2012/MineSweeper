@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AIMineComponent;
+using AIMine.Common;
 
 namespace AIMine.ViewModels
 {
-    public class GameViewModel
+    public class GameViewModel: BindableBase
     {
         public GameViewModel(SettingsViewModel settings)
         {
