@@ -29,8 +29,6 @@ namespace AIMine.Views
             _settingsViewModel = (Application.Current as App).SettingsViewModel;
             gameViewModel = new GameViewModel(_settingsViewModel);
             this.DataContext = gameViewModel;
-            testBtn.SetBinding(Button.ContentProperty,
-                        new Binding { Path = new PropertyPath("game.m_uMineNum") });
             
         }
 
@@ -60,14 +58,9 @@ namespace AIMine.Views
         public GameViewModel gameViewModel { get; set; }
         private SettingsViewModel _settingsViewModel;
 
-        private void testBtn_PointerPressed(object sender, PointerRoutedEventArgs e)
+        private void BtnAISearch_Click(object sender, RoutedEventArgs e)
         {
-            gameViewModel.test();
-        }
-
-        private void testBtn_Click(object sender, RoutedEventArgs e)
-        {
-            gameViewModel.test();
+            gameViewModel.AIsearch();
         }
     }
 }

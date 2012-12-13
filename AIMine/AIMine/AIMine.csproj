@@ -131,6 +131,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\GameViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
+    <Compile Include="Views\SimpleSettingsNarrow.xaml.cs">
+      <DependentUpon>SimpleSettingsNarrow.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -140,10 +143,22 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Background.png" />
+    <Content Include="Assets\Blast.PNG" />
+    <Content Include="Assets\Dicey.PNG" />
+    <Content Include="Assets\Empty.PNG" />
+    <Content Include="Assets\Flag.PNG" />
     <Content Include="Assets\Logo.png" />
+    <Content Include="Assets\Mine.PNG" />
+    <Content Include="Assets\Normal.PNG" />
     <Content Include="Assets\Num1.PNG" />
     <Content Include="Assets\Num2.PNG" />
     <Content Include="Assets\Num3.PNG" />
+    <Content Include="Assets\Num4.PNG" />
+    <Content Include="Assets\Num5.PNG" />
+    <Content Include="Assets\Num6.PNG" />
+    <Content Include="Assets\Num7.PNG" />
+    <Content Include="Assets\Num8.PNG" />
+    <Content Include="Assets\other.PNG" />
     <Content Include="Assets\SmallLogo.png" />
     <Content Include="Assets\SplashScreen.png" />
     <Content Include="Assets\StoreLogo.png" />
@@ -173,6 +188,10 @@
     <Page Include="Views\MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SimpleSettingsNarrow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">

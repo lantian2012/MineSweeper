@@ -93,18 +93,77 @@ namespace AIMine.Views
             UpdateSpaceState(false);
         }
 
-        private void SpaceButton_Click(object sender, RoutedEventArgs e)
-        {
-            gameViewModel.leftClick(row, column);
-            
-        }
-
         public GameViewModel gameViewModel{ get; set;}
 
         private void UserControl_Loaded_1(object sender, RoutedEventArgs e)
         {
             //SpaceButton.DataContext = gameViewModel.game.m_pMines[row][column];
         }
+
+        private void UserControl_PointerPressed_1(object sender, PointerRoutedEventArgs e)
+        {
+            if (!(gameViewModel.game.m_uGameState == GameState.Lose || gameViewModel.game.m_uGameState == GameState.Victory))
+            {
+                Pointer ptr = e.Pointer;
+                Windows.UI.Input.PointerPoint ptrPt = e.GetCurrentPoint(UserControlBS);
+                if (ptrPt.Properties.IsMiddleButtonPressed)
+                {
+                    gameViewModel.twoDown(row, column);
+                    gameViewModel.towUp(row, column);
+                }
+                if (ptrPt.Properties.IsLeftButtonPressed)
+                {
+                    gameViewModel.leftDown(row, column);
+                }
+                if (ptrPt.Properties.IsRightButtonPressed)
+                {
+                    gameViewModel.rightDown(row, column);
+                }
+                if (gameViewModel.game.m_uGameState == GameState.Lose)
+                    gameViewModel.loseDisplay();
+                if (gameViewModel.game.m_uGameState == GameState.Victory)
+                    gameViewModel.winDisplay();
+            }
+
+        }
+
+        private void UserControlBS_PointerReleased(object sender, PointerRoutedEventArgs e)
+        {
+            if (!(gameViewModel.game.m_uGameState == GameState.Lose || gameViewModel.game.m_uGameState == GameState.Victory))
+            {
+                Pointer ptr = e.Pointer;
+                Windows.UI.Input.PointerPoint ptrPt = e.GetCurrentPoint(UserControlBS);
+                /*
+                if (ptrPt.Properties.IsLeftButtonPressed)
+                {
+                    gameViewModel.leftUp(row, column);
+                }
+                if (ptrPt.Properties.IsRightButtonPressed)
+                {
+                    gameViewModel.rightUp(row, column);
+                }*/
+                gameViewModel.rightUp(row, column);
+                if (gameViewModel.game.m_uGameState == GameState.Lose)
+                    gameViewModel.loseDisplay();
+                if (gameViewModel.game.m_uGameState == GameState.Victory)
+                    gameViewModel.winDisplay();
+            }
+        }
+
+        private void SpaceButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(gameViewModel.game.m_uGameState == GameState.Lose || gameViewModel.game.m_uGameState == GameState.Victory))
+            {
+                gameViewModel.leftUp(row, column);
+                if (gameViewModel.game.m_uGameState == GameState.Lose)
+                    gameViewModel.loseDisplay();
+                if (gameViewModel.game.m_uGameState == GameState.Victory)
+                    gameViewModel.winDisplay();
+                gameViewModel.leftDown(row, column);
+            }
+        }
+
+
 
     }
 
@@ -116,9 +175,6 @@ namespace AIMine.Views
             string picuture;
             switch (thisState)
             {
-                case State.Normal:
-                    picuture = "ms-appx:///Assets/Num1.png";
-                    break;
                 case State.Num1:
                     picuture = "ms-appx:///Assets/Num1.png";
                     break;
@@ -128,8 +184,44 @@ namespace AIMine.Views
                 case State.Num3:
                     picuture = "ms-appx:///Assets/Num3.png";
                     break;
+                case State.Num4:
+                    picuture = "ms-appx:///Assets/Num5.png";
+                    break;
+                case State.Num5:
+                    picuture = "ms-appx:///Assets/Num5.png";
+                    break;
+                case State.Num6:
+                    picuture = "ms-appx:///Assets/Num6.png";
+                    break;
+                case State.Num7:
+                    picuture = "ms-appx:///Assets/Num7.png";
+                    break;
+                case State.Num8:
+                    picuture = "ms-appx:///Assets/Num8.png";
+                    break;
+                case State.Dicey:
+                    picuture = "ms-appx:///Assets/Dicey.png";
+                    break;
+                case State.Dicey_down:
+                    picuture = "ms-appx:///Assets/Dicey.png";
+                    break;
+                case State.Flag:
+                    picuture = "ms-appx:///Assets/Flag.png";
+                    break;
+                case State.Normal:
+                    picuture = "ms-appx:///Assets/Normal.png";
+                    break;
+                case State.Empty:
+                    picuture = "ms-appx:///Assets/Empty.png";
+                    break;
+                case State.Mine:
+                    picuture = "ms-appx:///Assets/Mine.png";
+                    break;
+                case State.Blast:
+                    picuture = "ms-appx:///Assets/Blast.png";
+                    break;
                 default:
-                    picuture = "ms-appx:///Assets/Num3.png";
+                    picuture = "ms-appx:///Assets/Num1.png";
                     break;
             }
             return picuture;

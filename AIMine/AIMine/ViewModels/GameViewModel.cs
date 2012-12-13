@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AIMineComponent;
 using AIMine.Common;
+using Windows.UI.Popups;
 
 namespace AIMine.ViewModels
 {
@@ -18,7 +19,6 @@ namespace AIMine.ViewModels
             m_uSecond = 0;
             m_uAdvance = 0;
             game = new Game(settings.m_uXnum, settings.m_uYnum, settings.m_uMineNum);
-            teststate = State.Num3;
         }
         public int m_uSpendTime { get; set; }			// 游戏开始击到目前所花费的时间
         public int m_uTimer { get; set; }				// 定时器标识
@@ -29,18 +29,54 @@ namespace AIMine.ViewModels
         public Game game { get; set; }
         public State teststate;
         
-        public void leftClick(int row, int column)
+        public void leftDown(int row, int column)
         {
-            game.m_pMines[row][column].uState = State.Num1;
-            OnPropertyChanged(String.Format("game.m_pMines[{0}][{1}].uState", row, column));
-            //teststate = State.Num1;
-            //OnPropertyChanged("teststate");
+            game.OnLButtonDown(row, column);
+            //game.OnLButtonUp(row, column);
         }
-        public void test()
+        public void leftUp(int row, int column)
         {
-            game.m_uMineNum++;
-            
-            OnPropertyChanged();
+            //game.OnLButtonDown(row, column);
+            game.OnLButtonUp(row, column);
+        }
+        public void rightDown(int row, int column)
+        {
+            game.OnRButtonDown(row, column);
+            //game.OnLRButtonDown(row, column);
+        }
+        public void rightUp(int row, int column)
+        {
+            game.OnRButtonUp(row, column);
+            //game.OnLButtonUp(row, column);
+        }
+        public void twoDown(int row, int column)
+        {
+            game.OnLRButtonDown(row, column);
+            //game.OnLButtonUp(row, column);
+        }
+        public void towUp(int row, int column)
+        {
+            game.OnLRButtonUp(row, column);
+        }
+
+        
+
+        public void AIsearch()
+        {
+        }
+        public async void winDisplay()
+        {
+            var messageDialog = new MessageDialog("You Win!");
+           
+            messageDialog.Commands.Add(new UICommand("OK"));
+            await messageDialog.ShowAsync();
+        }
+        public async void loseDisplay()
+        {
+            var messageDialog = new MessageDialog("You Lose!");
+
+            messageDialog.Commands.Add(new UICommand("OK"));
+            await messageDialog.ShowAsync();
         }
     }
 }

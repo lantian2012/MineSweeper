@@ -62,11 +62,6 @@ namespace AIMine.Views
                     boardSpace.row = row;
                     boardSpace.column = column;
                     boardSpace.gameViewModel = gameViewModel;
-                    //boardSpace.SetBinding(BoardSpace.SpaceStateProperty,
-                    //   new Binding { Path = new PropertyPath(String.Format("game.m_pMines[{0}][{1}].uState", row, column)) });
-                    //boardSpace.SetBinding(BoardSpace.SpaceStateProperty,
-                    //   new Binding { Path = new PropertyPath("teststate") });
-                    
                     boardViewBox.Child = boardSpace;
                     boardViewBox.Stretch = Stretch.Fill;
                     Grid.SetRow(boardViewBox, row);
