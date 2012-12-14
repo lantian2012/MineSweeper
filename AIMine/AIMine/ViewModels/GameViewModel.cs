@@ -59,24 +59,39 @@ namespace AIMine.ViewModels
             game.OnLRButtonUp(row, column);
         }
 
+
         
 
         public void AIsearch()
         {
+            game.sweeperAgent.SimpleDeduction();
         }
         public async void winDisplay()
         {
-            var messageDialog = new MessageDialog("You Win!");
+            var messageDialog = new MessageDialog("You Win!", "Congratulations!");
            
             messageDialog.Commands.Add(new UICommand("OK"));
             await messageDialog.ShowAsync();
         }
         public async void loseDisplay()
         {
-            var messageDialog = new MessageDialog("You Lose!");
+            var messageDialog = new MessageDialog("You Lose!", "Just Have Another Try");
 
             messageDialog.Commands.Add(new UICommand("OK"));
             await messageDialog.ShowAsync();
+        }
+        public void button1()
+        {
+        }
+        public void button2()
+        {
+        }
+        public void button3()
+        {
+        }
+        public void button4()
+        {
+            game.output++;
         }
     }
 }

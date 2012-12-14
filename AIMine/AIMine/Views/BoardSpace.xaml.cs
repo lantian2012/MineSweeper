@@ -29,75 +29,14 @@ namespace AIMine.Views
         }
         public int row { get; set; }
         public int column { get; set; }
-        public State SpaceState
-        {
-            get { return (State)GetValue(SpaceStateProperty); }
-            set { SetValue(SpaceStateProperty, value); }
-        }
-        public static DependencyProperty SpaceStateProperty =
-           DependencyProperty.Register("SpaceState",
-           typeof(State), typeof(BoardSpace),
-           new PropertyMetadata(State.Normal, SpaceStateChanged));
-        private static void SpaceStateChanged(DependencyObject d,
-            DependencyPropertyChangedEventArgs e)
-        {
-            (d as BoardSpace).UpdateSpaceState(false);
-        }
-        private void UpdateSpaceState(bool useTransitions)
-        {
-            switch (SpaceState)
-            {
-                    /*
-                case State.Normal:
-                    ImageBrush brushnormal = new ImageBrush();
-                    //brushnormal.ImageSource = new BitmapImage(new Uri(@"Num1.PNG", UriKind.RelativeOrAbsolute));
-                    brushnormal.ImageSource = new BitmapImage(new Uri("ms_appx:///Assets/Num1.png"));
-                    //brushnormal.ImageSource = new Uri("Num1.PNG" & Image, UriKind.RelativeOrAbsolute);
-                    brushnormal.Stretch = Stretch.Fill;
-                    break;
-                case State.Num1:
-                    ImageBrush brushnum1 = new ImageBrush();
-                    brushnum1.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Background.png"));
-                    brushnum1.Stretch = Stretch.Fill;
-                    break;
-                case State.Num2:
-                    ImageBrush brushnum2 = new ImageBrush();
-                    brushnum2.ImageSource = new BitmapImage(new Uri(@"Num2.PNG", UriKind.RelativeOrAbsolute));
-                    brushnum2.Stretch = Stretch.Fill;
-                    break;
-                case State.Num3:
-                    ImageBrush brushnum3 = new ImageBrush();
-                    brushnum3.ImageSource = new BitmapImage(new Uri(@"Num3.PNG", UriKind.RelativeOrAbsolute));
-                    brushnum3.Stretch = Stretch.Fill;
-                    
-                    break;
-                 */
-
-                case State.Num1:
-                    SpaceButton.Content = "1";
-                    break;
-                case State.Num2:
-                    SpaceButton.Content = "2";
-                    break;
-                case State.Num3:
-                    SpaceButton.Content = "3";
-                    break;
-                case State.Num4:
-                    SpaceButton.Content = "4";
-                    break;
-            }
-        }
-
         private void SpaceButton_Loaded(object sender, RoutedEventArgs e)
         {
-            UpdateSpaceState(false);
         }
 
         public GameViewModel gameViewModel{ get; set;}
 
         private void UserControl_Loaded_1(object sender, RoutedEventArgs e)
         {
-            //SpaceButton.DataContext = gameViewModel.game.m_pMines[row][column];
         }
 
         private void UserControl_PointerPressed_1(object sender, PointerRoutedEventArgs e)
@@ -133,15 +72,6 @@ namespace AIMine.Views
             {
                 Pointer ptr = e.Pointer;
                 Windows.UI.Input.PointerPoint ptrPt = e.GetCurrentPoint(UserControlBS);
-                /*
-                if (ptrPt.Properties.IsLeftButtonPressed)
-                {
-                    gameViewModel.leftUp(row, column);
-                }
-                if (ptrPt.Properties.IsRightButtonPressed)
-                {
-                    gameViewModel.rightUp(row, column);
-                }*/
                 gameViewModel.rightUp(row, column);
                 if (gameViewModel.game.m_uGameState == GameState.Lose)
                     gameViewModel.loseDisplay();
@@ -154,6 +84,7 @@ namespace AIMine.Views
         {
             if (!(gameViewModel.game.m_uGameState == GameState.Lose || gameViewModel.game.m_uGameState == GameState.Victory))
             {
+                RectSpace.Fill.Opacity = 0;
                 gameViewModel.leftUp(row, column);
                 if (gameViewModel.game.m_uGameState == GameState.Lose)
                     gameViewModel.loseDisplay();
@@ -185,7 +116,7 @@ namespace AIMine.Views
                     picuture = "ms-appx:///Assets/Num3.png";
                     break;
                 case State.Num4:
-                    picuture = "ms-appx:///Assets/Num5.png";
+                    picuture = "ms-appx:///Assets/Num4.png";
                     break;
                 case State.Num5:
                     picuture = "ms-appx:///Assets/Num5.png";
@@ -226,10 +157,61 @@ namespace AIMine.Views
             }
             return picuture;
         }
-
         public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
             throw new NotImplementedException();
         }
     }
+    public class EstimationFormatterColor : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            Estimation thisEstimation = (Estimation)value;
+            string color;
+            switch (thisEstimation)
+            {
+                case Estimation.Mine:
+                    color = "#FFD86780";
+                    break;
+                case Estimation.Empty:
+                    color = "#FF998EDC";
+                    break;
+                default:
+                    color = "#FF998EDC";
+                    break;
+            }
+            return color;
+        }
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            throw new NotImplementedException();
+        }
+    }
+    public class EstimationFormatterOpa : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            Estimation thisEstimation = (Estimation)value;
+            string opa;
+            switch (thisEstimation)
+            {
+                case Estimation.Mine:
+                    opa = "0.5";
+                    break;
+                case Estimation.Empty:
+                    opa = "0.5";
+                    break;
+                default:
+                    opa = "0";
+                    break;
+            }
+            return opa;
+        }
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+
 }

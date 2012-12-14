@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
+using System.ComponentModel;
 /*
  * 
      foreach (var i in Enumerable.Range(0, m_uXNum))
@@ -13,9 +14,28 @@ using System.Threading;
  * */
 namespace AIMineComponent
 {
-    public sealed class Game
+    public sealed class Game: INotifyPropertyChanged
     {
         #region Properties of Game Class
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void NotifyPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+
+            }
+        }
+        private double _output;
+        public double output
+        {
+            get { return _output; }
+            set
+            {
+                _output = value;
+                NotifyPropertyChanged("output");
+            }
+        } 
         public int	m_uXNum { get; set; }				// X方向小方块个数
         public int m_uYNum { get; set; }				// Y方向小方块个数
         public int m_uMineNum { get; set; }				// 总的雷个数
@@ -25,6 +45,7 @@ namespace AIMineComponent
         public IList<IList<MINEWND>>  m_pMines { get; set; }		// 表示雷区内的所有小方块的二维数组
         public MINEWND m_pNewMine { get; set; }				// 当前选中的小方块
         public MINEWND m_pOldMine { get; set; }				// 上次选中的小方块
+        public SweeperAgent sweeperAgent; //扫雷智能体
         
         #endregion
 
@@ -68,6 +89,7 @@ namespace AIMineComponent
                     m_pMines[i][j].uState = State.Normal;
                     m_pMines[i][j].uAttrib = Attrib.Empty;
                     m_pMines[i][j].uOldState = State.Normal;
+                    m_pMines[i][j].uEstimation = Estimation.None;
                 }
             }
             //随机布置地雷
@@ -82,6 +104,8 @@ namespace AIMineComponent
                 if (m_pMines[i][j].uAttrib == Attrib.Mine) k--;
                 else      m_pMines[i][j].uAttrib = Attrib.Mine;              
             }
+            //Agent
+            sweeperAgent =new  SweeperAgent(m_pMines, m_uXNum,m_uYNum);
 
 
 
@@ -106,6 +130,7 @@ namespace AIMineComponent
                     if (m_pMines[i][j].uState == State.Dicey) return false;
                 }
             }
+            m_nLeaveNum = 0;
             m_uGameState = GameState.Victory;
             return true;
         }
@@ -131,6 +156,12 @@ namespace AIMineComponent
                         { //将未标出的雷进行显示
                             m_pMines[i][j].uState = State.Mine;
                             m_pMines[i][j].uOldState = State.Mine;
+                        }
+                        if (m_pMines[i][j].uAttrib != Attrib.Mine
+                            && m_pMines[i][j].uState == State.Flag)
+                        { //将未标出的雷进行显示
+                            m_pMines[i][j].uState = State.Error;
+                            m_pMines[i][j].uOldState = State.Error;
                         }
                     }
                 }
@@ -223,14 +254,12 @@ namespace AIMineComponent
                 for (i = minRow; i < maxRow; i++)
                 {
                     for (j = minCol; j < maxCol; j++)
-                    {//对于周围可以拓展的区域进行的规拓展	
-                        if (!IsInMineArea(i, j)) continue;
+                    {//对于周围可以拓展的区域进行的规拓展			
+                        if (!IsInMineArea(i, j)) continue; //先进行合法判断
                         if (!(i == x && j == y) &&
                             m_pMines[i][j].uState == State.Normal
                             && m_pMines[i][j].uAttrib != Attrib.Mine)
-                        {
-
-                            
+                        {                            
                             ExpandMines(i, j); //iteration, good
                         }
                     }
@@ -282,7 +311,6 @@ namespace AIMineComponent
                         }
                     }
                 }
-                m_nLeaveNum = 0;
                 m_nLeaveNum = 0;
             }
         }
@@ -380,10 +408,12 @@ namespace AIMineComponent
                 case State.Normal:
                     m_pMines[x][y].uState = State.Flag;
                     m_pMines[x][y].uOldState = State.Flag;
+                    m_nLeaveNum--;
                     break;
                 case State.Flag:
                     m_pMines[x][y].uState = State.Dicey;
                     m_pMines[x][y].uOldState = State.Dicey;
+                    m_nLeaveNum++;
                     break;
                 case State.Dicey:
                     m_pMines[x][y].uState = State.Normal;

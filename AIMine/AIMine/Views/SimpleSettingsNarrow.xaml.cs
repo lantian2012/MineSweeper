@@ -41,7 +41,7 @@ namespace AIMine.Views
                 case 0:
                     settings.m_uXnum = 10;
                     settings.m_uYnum = 10;
-                    settings.m_uMineNum = 15;
+                    settings.m_uMineNum = 8;
                     break;
                 case 1:
                     settings.m_uXnum = 16;

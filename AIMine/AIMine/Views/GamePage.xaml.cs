@@ -62,5 +62,26 @@ namespace AIMine.Views
         {
             gameViewModel.AIsearch();
         }
+
+        private void Button1_Click(object sender, RoutedEventArgs e)
+        {
+            gameViewModel.button1();
+        }
+
+        private void Button2_Click(object sender, RoutedEventArgs e)
+        {
+            gameViewModel.button2();
+        }
+
+        private void Button3_Click(object sender, RoutedEventArgs e)
+        {
+            gameViewModel.button3();
+        }
+
+        private void Button4_Click(object sender, RoutedEventArgs e)
+        {
+            gameViewModel.button4();
+        }
+
     }
 }

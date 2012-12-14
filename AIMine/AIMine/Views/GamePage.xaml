@@ -42,6 +42,11 @@
         <local:Board x:Name="GameBoard" HorizontalAlignment="Left" Margin="613,99,0,0" VerticalAlignment="Top"
                      RowCount="{Binding game.m_uXNum}" ColumnCount="{Binding game.m_uYNum}" Height="640" Grid.RowSpan="2"/>
         <Button x:Name="BtnAISearch" Content="AI Search" HorizontalAlignment="Left" Margin="245,175,0,0" Grid.Row="1" VerticalAlignment="Top" Click="BtnAISearch_Click"/>
+        <TextBlock HorizontalAlignment="Left" Margin="133,82,0,0" Grid.Row="1" TextWrapping="Wrap" Text="{Binding game.output}" VerticalAlignment="Top" Height="36" Width="376" FontSize="20"/>
+        <Button x:Name="Button1" Content="Button1" HorizontalAlignment="Left" Margin="245,233,0,0" Grid.Row="1" VerticalAlignment="Top" Click="Button1_Click"/>
+        <Button x:Name="Button2" Content="Button2" HorizontalAlignment="Left" Margin="245,299,0,0" Grid.Row="1" VerticalAlignment="Top" Click="Button2_Click"/>
+        <Button x:Name="Button3" Content="Button3" HorizontalAlignment="Left" Margin="245,368,0,0" Grid.Row="1" VerticalAlignment="Top" Click="Button3_Click"/>
+        <Button x:Name="Button4" Content="Button4" HorizontalAlignment="Left" Margin="245,438,0,0" Grid.Row="1" VerticalAlignment="Top" Click="Button4_Click"/>
 
         <VisualStateManager.VisualStateGroups>
 

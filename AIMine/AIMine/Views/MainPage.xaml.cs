@@ -26,6 +26,7 @@ namespace AIMine
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        bool settingPanelInitialized = false;
         Rect _windowBounds;
         double _settingsWidth = 346;
         Popup _settingsPopup;
@@ -43,25 +44,29 @@ namespace AIMine
 
         void MainPage_CommandsRequested(SettingsPane sender, SettingsPaneCommandsRequestedEventArgs args)
         {
-            SettingsCommand cmd = new SettingsCommand("AIMine", "Layout Options", (x) =>
+            if (!settingPanelInitialized)
             {
-                _settingsPopup = new Popup();
-                _settingsPopup.Closed += OnPopupClosed;
-                Window.Current.Activated += OnWindowActivated;
-                _settingsPopup.IsLightDismissEnabled = true;
-                _settingsPopup.Width = _settingsWidth;
-                _settingsPopup.Height = _windowBounds.Height;
+                SettingsCommand cmd = new SettingsCommand("AIMine", "Layout Options", (x) =>
+                {
+                    _settingsPopup = new Popup();
+                    _settingsPopup.Closed += OnPopupClosed;
+                    Window.Current.Activated += OnWindowActivated;
+                    _settingsPopup.IsLightDismissEnabled = true;
+                    _settingsPopup.Width = _settingsWidth;
+                    _settingsPopup.Height = _windowBounds.Height;
 
-                SimpleSettingsNarrow mypane = new SimpleSettingsNarrow();
-                mypane.Width = _settingsWidth;
-                mypane.Height = _windowBounds.Height;
+                    SimpleSettingsNarrow mypane = new SimpleSettingsNarrow();
+                    mypane.Width = _settingsWidth;
+                    mypane.Height = _windowBounds.Height;
 
-                _settingsPopup.Child = mypane;
-                _settingsPopup.SetValue(Canvas.LeftProperty, _windowBounds.Width - _settingsWidth);
-                _settingsPopup.SetValue(Canvas.TopProperty, 0);
-                _settingsPopup.IsOpen = true;
-            });
-            args.Request.ApplicationCommands.Add(cmd);
+                    _settingsPopup.Child = mypane;
+                    _settingsPopup.SetValue(Canvas.LeftProperty, _windowBounds.Width - _settingsWidth);
+                    _settingsPopup.SetValue(Canvas.TopProperty, 0);
+                    _settingsPopup.IsOpen = true;
+                });
+                args.Request.ApplicationCommands.Add(cmd);
+                settingPanelInitialized = true;
+            }
         }
         private void OnWindowActivated(object sender, Windows.UI.Core.WindowActivatedEventArgs e)
         {

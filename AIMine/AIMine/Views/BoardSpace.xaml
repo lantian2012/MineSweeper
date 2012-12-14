@@ -7,9 +7,11 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     d:DesignHeight="100"
-    d:DesignWidth="100" Margin="1,0,-1,0" Loaded="UserControl_Loaded_1" PointerPressed="UserControl_PointerPressed_1" PointerReleased="UserControlBS_PointerReleased">
+    d:DesignWidth="100" Margin="0" Loaded="UserControl_Loaded_1" PointerPressed="UserControl_PointerPressed_1" PointerReleased="UserControlBS_PointerReleased">
     <UserControl.Resources>
         <local:StateFormatter x:Key="Converter1"/>
+        <local:EstimationFormatterColor x:Key="ConverterColor"/>
+        <local:EstimationFormatterOpa x:Key="ConverterOpa"/>
         <Style x:Key="ButtonStyle1" TargetType="Button">
         	<Setter Property="Background" Value="{StaticResource ButtonBackgroundThemeBrush}"/>
         	<Setter Property="Foreground" Value="{StaticResource ButtonForegroundThemeBrush}"/>
@@ -43,10 +45,21 @@
             <ColumnDefinition Width="81*"/>
             <ColumnDefinition Width="19*"/>
         </Grid.ColumnDefinitions>
-        <Button x:Name="SpaceButton" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Height="100" Width="100" BorderBrush="{x:Null}" Loaded="SpaceButton_Loaded" Foreground="{x:Null}" Style="{StaticResource ButtonStyle1}" Grid.ColumnSpan="2" Click="SpaceButton_Click">
+        <Button x:Name="SpaceButton" HorizontalAlignment="Left" VerticalAlignment="Top" Height="100" Width="100" Loaded="SpaceButton_Loaded" Style="{StaticResource ButtonStyle1}" Grid.ColumnSpan="2" Click="SpaceButton_Click" BorderThickness="6" Padding="0">
+            <Button.BorderBrush>
+                <SolidColorBrush Color="White" Opacity="1"/>
+            </Button.BorderBrush>
+            <Button.Foreground>
+                <SolidColorBrush Color="#FFA290F3"/>
+            </Button.Foreground>
             <Button.Background>
                 <ImageBrush ImageSource= "{Binding uState, Converter={StaticResource Converter1}}"/>
             </Button.Background>
+            <Rectangle x:Name="RectSpace" Height="100" Width="100" StrokeThickness="0">
+                <Rectangle.Fill>
+                    <SolidColorBrush Color="{Binding uEstimation,Converter={StaticResource ConverterColor}}" Opacity="{Binding uEstimation, Converter={StaticResource ConverterOpa}}"/>
+                </Rectangle.Fill>
+            </Rectangle>
         </Button>
 
     </Grid>
