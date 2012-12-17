@@ -176,6 +176,9 @@ namespace AIMine.Views
                 case Estimation.Empty:
                     color = "#FF998EDC";
                     break;
+                case Estimation.HighestEmpty:
+                    color ="#FF55FFFF";
+                    break;
                 default:
                     color = "#FF998EDC";
                     break;
@@ -199,6 +202,9 @@ namespace AIMine.Views
                     opa = "0.5";
                     break;
                 case Estimation.Empty:
+                    opa = "0.5";
+                    break;
+                case Estimation.HighestEmpty:
                     opa = "0.5";
                     break;
                 default:

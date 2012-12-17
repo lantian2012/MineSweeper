@@ -38,7 +38,8 @@ namespace AIMineComponent
         Mine,
         Empty,
         TempMine,
-        TempEmpty
+        TempEmpty,
+        HighestEmpty
     }
     public enum Attrib
     {

@@ -83,5 +83,10 @@ namespace AIMine.Views
             gameViewModel.button4();
         }
 
+        private void GameBoard_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
+
     }
 }

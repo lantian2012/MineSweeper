@@ -82,6 +82,7 @@ namespace AIMine.ViewModels
         }
         public void button1()
         {
+            game.sweeperAgent.DepthFirstDeductoin();
         }
         public void button2()
         {

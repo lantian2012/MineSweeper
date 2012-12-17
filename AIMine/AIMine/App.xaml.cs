@@ -34,8 +34,8 @@ namespace AIMine
             this.Suspending += OnSuspending;
             SettingsViewModel = new SettingsViewModel();
             SettingsViewModel.m_uMineNum = 1;
-            SettingsViewModel.m_uXnum = 16;
-            SettingsViewModel.m_uYnum = 16;
+            SettingsViewModel.m_uXnum = 3;
+            SettingsViewModel.m_uYnum = 3;
             
         }
         public SettingsViewModel SettingsViewModel { get; set; }

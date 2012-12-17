@@ -133,6 +133,7 @@
                     <Button Content="10" Background="White" Foreground="Black"/>
                     <Button Content="16" Background="White" Foreground="Black"/>
                     <Button Content="20" Background="White" Foreground="Black"/>
+                    <Button Content="Test" Foreground="#FF0A0000"/>
                 </ComboBox>
             </Grid>
 

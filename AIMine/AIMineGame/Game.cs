@@ -35,11 +35,23 @@ namespace AIMineComponent
                 _output = value;
                 NotifyPropertyChanged("output");
             }
-        } 
+        }
+        private int _m_nLeaveNum;
         public int	m_uXNum { get; set; }				// X方向小方块个数
         public int m_uYNum { get; set; }				// Y方向小方块个数
         public int m_uMineNum { get; set; }				// 总的雷个数
-        public int m_nLeaveNum { get; set; }			// 剩余的雷个数
+        public int m_nLeaveNum
+        {
+            get
+            {
+                return _m_nLeaveNum;
+            }
+            set
+            {
+                _m_nLeaveNum = value;
+                NotifyPropertyChanged("m_nLeaveNum");
+            }
+        }
         public GameState m_uGameState { get; set; }			// 游戏状态
         public int m_uNewState { get; set; }			// 当前选中的小方块的状态
         public IList<IList<MINEWND>>  m_pMines { get; set; }		// 表示雷区内的所有小方块的二维数组

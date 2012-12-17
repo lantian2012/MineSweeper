@@ -53,6 +53,11 @@ namespace AIMine.Views
                     settings.m_uYnum = 20;
                     settings.m_uMineNum = 80;
                     break;
+                case 3:
+                    settings.m_uXnum = 0;
+                    settings.m_uYnum = 0;
+                    settings.m_uMineNum = 0;
+                    break;
             }
         }
     }
